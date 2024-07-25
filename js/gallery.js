@@ -91,7 +91,7 @@ imageGallery.innerHTML = galleryCardsTemplate;
 const clickOnImg = event => {
     event.preventDefault()
 
-    const clickedImg = event.target.closest(`.gallery-image`);
+    const clickedImg = event.target.closest(`.gallery-image`); 
 
     if (!clickedImg) {
     return; // користувач клікнув між зображеннями
@@ -99,7 +99,7 @@ const clickOnImg = event => {
 
     const imageAlt = clickedImg.dataset.source; // доступ до дата-атрибута img
 
-    const imageInfo = images.find(image => image.original === clickedImg.dataset.source);
+    const imageInfo = images.find(image => image.original === imageAlt);
 // пошук відповідності дата-атрибута в масиві
 
     const modalInstance = basicLightbox.create(`
@@ -111,8 +111,7 @@ const clickOnImg = event => {
         />
 `);
     modalInstance.show();
+    // створюємо модальне вікно
 }
     
 imageGallery.addEventListener("click", clickOnImg);
-
-

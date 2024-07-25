@@ -80,27 +80,39 @@ const createGalleryCard = pictureInfo => {
 const galleryCardsTemplate = images.map(imgInfo => createGalleryCard(imgInfo)).join(``);
 
 const imageGallery = document.querySelector(`.gallery`);
+
 // якщо додаємо з нуля 
 imageGallery.innerHTML = galleryCardsTemplate;
+
 // якщо додаємо до створеного списку
 // imageGallery.insertAdjacentHTML(`beforeend`, galleryCardsTemplate);
 
 // додаємо слухача на батьківський елемент і функцію як буде виконуватися
-imageGallery.addEventListener("click", );
+const clickOnImg = event => {
+    event.preventDefault()
 
+    const clickedImg = event.target.closest(`.gallery-image`);
 
-// function selectColor(event) {
-//   if (event.target.nodeName !== "BUTTON") {
-//     return; // користувач клікнув між кнопками
-//   }
+    if (!clickedImg) {
+    return; // користувач клікнув між зображеннями
+    };
 
-//   const selectedColor = event.target.dataset.color; // користувач клікнув на кнопку і ми маємо доступ до її атрибутів
-// }
+    const imageAlt = clickedImg.dataset.source; // доступ до дата-атрибута img
 
+    const imageInfo = images.find(image => image.original === clickedImg.dataset.source);
+// пошук відповідності дата-атрибута в масиві
 
-
+    const modalInstance = basicLightbox.create(`
+        <img
+        class="gallery-image-madal"
+        src="${imageInfo.original}"
+        data-source="${imageInfo.preview}"
+        alt="${imageInfo.description}"
+        />
+`);
+    modalInstance.show();
+}
     
-
-
+imageGallery.addEventListener("click", clickOnImg);
 
 
